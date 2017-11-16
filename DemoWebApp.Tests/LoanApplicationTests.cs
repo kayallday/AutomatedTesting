@@ -1,0 +1,98 @@
+﻿using Xunit;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
+
+
+namespace DemoWebApp.Tests
+{
+    public class LoanApplicationTests
+    {
+        [Fact]
+        public void StartApplication()
+        {
+            using (IWebDriver driver = new ChromeDriver())
+            {
+                driver.Manage().Window.Maximize();
+
+                driver.Navigate().GoToUrl("http://localhost:40077/");
+
+                WebDriverWait wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(20000));
+                wait.Until(ExpectedConditions.ElementIsVisible(By.Id("startApplication")));
+
+                IWebElement applicationButton = driver.FindElement(By.Id("startApplication"));
+
+                applicationButton.Click();
+
+                Assert.Equal("Start Loan Application - Loan Application", driver.Title);
+            }
+        }
+
+        [Fact]
+        public void SubmitApplication()
+        {
+            using (IWebDriver driver = new ChromeDriver())
+            {
+                driver.Manage().Window.Maximize();
+
+                driver.Navigate().GoToUrl("http://localhost:40077/Home/StartLoanApplication");
+
+                IWebElement firstNameInput = driver.FindElement(By.Id("FirstName"));
+                firstNameInput.SendKeys("Sarah");
+
+                driver.FindElement(By.Id("LastName")).SendKeys("Smith");
+
+
+                driver.FindElement(By.Id("Loan")).Click();
+
+
+                driver.FindElement(By.Name("TermsAcceptance")).Click();
+
+
+                driver.FindElement(By.CssSelector(".btn.btn-primary")).Click();
+
+
+                IWebElement confirmationNameSpan = driver.FindElement(By.Id("firstName"));
+
+
+                string confirmationName = confirmationNameSpan.Text;
+
+
+                Assert.Equal("Sarah", confirmationName);
+            }
+        }
+        //protected bool IsDisplayed(By locator)
+        //{
+        //    try
+        //    {
+        //        using (IWebDriver driver = new ChromeDriver())
+        //        {
+        //            return Find(locator).Displayed;
+        //        }
+        //    }
+        //    catch (NoSuchElementException)
+        //    {
+        //        return false;
+        //    }
+        //}
+        protected bool IsDisplayed(By locator, int maxWaitTime)
+        {
+            try
+            {
+                using (IWebDriver driver = new ChromeDriver())
+                {
+
+
+                    WebDriverWait wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(maxWaitTime));
+                    wait.Until(ExpectedConditions.ElementIsVisible(locator)); // should this be ElementToBeClickable?
+                    return true;
+                }
+            }
+            catch (WebDriverTimeoutException)
+            {
+                return false;
+            }
+        }
+
+    }
+}
