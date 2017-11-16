@@ -18,7 +18,7 @@ namespace DemoWebApp.Tests
                 driver.Navigate().GoToUrl("http://localhost:40077/");
 
                 WebDriverWait wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(20000));
-                wait.Until(ExpectedConditions.ElementIsVisible(By.Id("startApplication")));
+                wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("startApplication")));
 
                 IWebElement applicationButton = driver.FindElement(By.Id("startApplication"));
 
@@ -84,7 +84,7 @@ namespace DemoWebApp.Tests
 
 
                     WebDriverWait wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(maxWaitTime));
-                    wait.Until(ExpectedConditions.ElementIsVisible(locator)); // should this be ElementToBeClickable?
+                    wait.Until(ExpectedConditions.ElementToBeClickable(locator)); // should this be ElementToBeClickable?
                     return true;
                 }
             }
