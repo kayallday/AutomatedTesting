@@ -93,7 +93,29 @@ this.ScenarioSetup(scenarioInfo);
 #line 12
  testRunner.When("I submit my application", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 13
- testRunner.Then("I should the application complete confirmation for Sarah", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I should see the application complete confirmation for Sarah", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.FactAttribute(DisplayName="Cannot submit application unless terms and conditions accepted")]
+        [Xunit.TraitAttribute("FeatureTitle", "LoanApplication")]
+        [Xunit.TraitAttribute("Description", "Cannot submit application unless terms and conditions accepted")]
+        public virtual void CannotSubmitApplicationUnlessTermsAndConditionsAccepted()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cannot submit application unless terms and conditions accepted", ((string[])(null)));
+#line 15
+this.ScenarioSetup(scenarioInfo);
+#line 17
+  testRunner.And("I enter a first name of Gentry", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 18
+  testRunner.And("I enter a second name of Jones", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 19
+  testRunner.And("I select that I have an existing loan account", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 20
+ testRunner.When("I submit my application", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 21
+ testRunner.Then("I should see an error message telling me I must accept the terms and conditions", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
